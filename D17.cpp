@@ -47,7 +47,6 @@ int combo(int x) {
 
 void solve() {
     scanf("Register A: %lld\n", &A);
-    // cout << A << '\n';
     scanf("Register B: %lld\n", &B);
     scanf("Register C: %lld\n", &C);
 
@@ -59,7 +58,7 @@ void solve() {
     string s;
     getline(cin, s);
     s = s.substr(9, s.size() - 9);
-    // cout << A << ' ' << B << ' ' << C << '\n' << s << '\n';
+
     stringstream ss(s);
     while (getline(ss, s, ',')) {
         instructions.push_back(stoi(s));
@@ -92,7 +91,7 @@ void solve() {
     }
 }
 
-int find(vector<int> instructions, int ans) {
+int check(vector<int> instructions, int ans) {
     // if (ans == 0) return -1;
     if (instructions.size() == 0) return ans;
     for (int i = 0; i < instructions.size(); i++) cout << instructions[i] << ' ';
@@ -108,7 +107,7 @@ int find(vector<int> instructions, int ans) {
         if (B % 8 == instructions[instructions.size() - 1]) {
             vector<int> tmp = instructions;
             tmp.pop_back();
-            int res = find(tmp, A);
+            int res = check(tmp, A);
             if (res != -1) return res;
         }
     }
@@ -120,10 +119,6 @@ void solve2() {
     scanf("Register B: %lld\n", &B);
     scanf("Register C: %lld\n", &C);
 
-    int oriA = A;
-    int oriB = B;
-    int oriC = C;
-
     vector<int> instructions;
     string s; getline(cin, s); cout << s << '\n';
     s = s.substr(9, s.size() - 9);
@@ -131,25 +126,23 @@ void solve2() {
     while (getline(ss, s, ',')) {
         instructions.push_back(stoi(s));
     }
-    // for (int i = 0; i < instructions.size(); i++) cout << instructions[i] << ' ';
-    // cout << '\n';
 
-    while (A != 0) {
-        B = A % 8;
-        B = B ^ 7;
-        C = A >> B;
-        A = A >> 3;
-        B = B ^ C;
-        B = B ^ 7;
-        cout << B % 8 << ',';
-    }
-    cout << '\n';
+    // while (A != 0) {
+    //     B = A % 8;
+    //     B = B ^ 7;
+    //     C = A >> B;
+    //     A = A >> 3;
+    //     B = B ^ C;
+    //     B = B ^ 7;
+    //     cout << B % 8 << ',';
+    // }
+    // cout << '\n';
 
     A = 0;
     B = 0;
     C = 0;
 
-    cout << find(instructions, 0) << '\n';
+    cout << check(instructions, 0) << '\n';
 }
 
 /*
